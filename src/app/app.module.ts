@@ -8,9 +8,10 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { IsUrinePipe } from './is-urine.pipe';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, IsUrinePipe],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [

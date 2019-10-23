@@ -1,14 +1,124 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+    <ion-button (click)="fetchUltradata()" expand="block"
+      >センサーチェック</ion-button
+    >
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>センサー１</ion-card-subtitle>
+      <ion-card-title>{{ ch1IsUrine }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <p>前壁： {{ ch1AntePosition }}</p>
+          </ion-col>
+          <ion-col>
+            <p>後壁： {{ ch1PostePosition }}</p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <p>20以下破棄位置（前）： {{ ch1Under20FrontPosition }}</p>
+            <p>20以下破棄位置（後） {{ ch1Under20BackPosition }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>センサー２</ion-card-subtitle>
+      <ion-card-title>{{ ch2IsUrine }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <p>前壁： {{ ch2AntePosition }}</p>
+          </ion-col>
+          <ion-col>
+            <p>後壁： {{ ch2PostePosition }}</p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <p>20以下破棄位置（前）： {{ ch2Under20FrontPosition }}</p>
+            <p>20以下破棄位置（後） {{ ch2Under20BackPosition }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>センサー３</ion-card-subtitle>
+      <ion-card-title>{{ ch3IsUrine }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <p>前壁： {{ ch3AntePosition }}</p>
+          </ion-col>
+          <ion-col>
+            <p>後壁： {{ ch3PostePosition }}</p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <p>20以下破棄位置（前）： {{ ch3Under20FrontPosition }}</p>
+            <p>20以下破棄位置（後） {{ ch3Under20BackPosition }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>センサー４</ion-card-subtitle>
+      <ion-card-title>{{ ch4IsUrine }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <p>前壁： {{ ch4AntePosition }}</p>
+          </ion-col>
+          <ion-col>
+            <p>後壁： {{ ch4PostePosition }}</p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <p>20以下破棄位置（前）： {{ ch4Under20FrontPosition }}</p>
+            <p>20以下破棄位置（後） {{ ch4Under20BackPosition }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Data 0</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ ultraData0 }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Data 1</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ ultraData1 }}</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
