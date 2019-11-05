@@ -9,8 +9,8 @@ const ULTRA_DATA0_CHARACTERISTIC_UUID =
 GattData.ULTRA_DATA0_CHARACTERISTIC_UUID;
 const ULTRA_DATA1_CHARACTERISTIC_UUID =
 GattData.ULTRA_DATA1_CHARACTERISTIC_UUID;
-// const PSDI_SERVICE_UUID = GattData.PSDI_SERVICE_UUID;
-// const PSDI_CHARACTERISTIC_UUID = GattData.PSDI_CHARACTERISTIC_UUID;
+const PSDI_SERVICE_UUID = GattData.PSDI_SERVICE_UUID;
+const PSDI_CHARACTERISTIC_UUID = GattData.PSDI_CHARACTERISTIC_UUID;
 
 
 @Component({
@@ -20,8 +20,8 @@ GattData.ULTRA_DATA1_CHARACTERISTIC_UUID;
 })
 export class HomePage implements OnInit {
   messages: string;
-  // userProfile: any;
-  // statusBle: boolean;
+  userProfile: any;
+  statusBle: boolean;
   service: any;
   characteristic: any;
   bufferData0 = new ArrayBuffer(512);
@@ -92,20 +92,28 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-    liff.init(
-      () => this.initLineLiff(),
-      error => alert('INIT ERROR: ' + JSON.stringify(error))
-    );
-  }
-
-  initLineLiff() {
-    liff.initPlugins(['bluetooth']).then(() => {
-      this.liffCheckAvailablityAndDo(() => this.liffRequestDevice());
+    liff.init({
+      liffId: '1653365120-qRVd6laG',
+    })
+    .then(() => {
+      this.initLineLiff();
+    })
+    .catch((err) => {
+      alert('OnInit' + JSON.stringify(err));
     });
   }
 
+  initLineLiff() {
+    liff.initPlugins(['bluetooth'])
+    .then(() => {
+      this.liffCheckAvailablityAndDo(() => this.liffRequestDevice());
+    })
+    .catch(err => alert(JSON.stringify(err)));
+  }
+
   liffCheckAvailablityAndDo(callbackIfAvailable) {
-    liff.bluetooth.getAvailability().then(isAvailable => {
+    liff.bluetooth.getAvailability()
+    .then(isAvailable => {
       if (isAvailable) {
         callbackIfAvailable();
       } else {
@@ -114,7 +122,8 @@ export class HomePage implements OnInit {
           10000
         );
       }
-    });
+    })
+    .catch((error) => alert(JSON.stringify(error)));
   }
 
   liffRequestDevice() {
@@ -144,9 +153,9 @@ export class HomePage implements OnInit {
           });
         });
       });
-      // device.gatt.getPrimaryService(PSDI_SERVICE_UUID).then(service => {
-      //   this.liffGetPSDIService(service);
-      // });
+      device.gatt.getPrimaryService(PSDI_SERVICE_UUID).then(service => {
+        this.liffGetPSDIService(service);
+      });
     });
 
     const disconnectCallback = () => {
@@ -345,14 +354,14 @@ export class HomePage implements OnInit {
       countIs++;
     }
     const strCountIs = String(countIs);
-    // const kindMessageArray = [
-    //   {
-    //     type : 'text',
-    //     text : `${strCountIs}つのデータから取得できております。`
-    //   }
-    // ];
+    const kindMessageArray = [
+      {
+        type : 'text',
+        text : `${strCountIs}つのデータから取得できております。`
+      }
+    ];
 
-    // liff.sendMessages(kindMessageArray).then((res) => alert('Success!')).catch((err) => alert(err));
+    liff.sendMessages(kindMessageArray).then((res) => alert('Success!')).catch((err) => alert(err));
   }
 
   anteriorPositionUnder30(ch1AntePosition, ch2AntePosition, ch3AntePosition, ch4AntePosition) {
@@ -541,15 +550,15 @@ export class HomePage implements OnInit {
     }
   }
 
-  // async liffGetPSDIService(service) {
-  //   service.getCharacteristic(PSDI_CHARACTERISTIC_UUID).then(characteristic => {
-  //     return characteristic.readValue();
-  //   })
-  //   .then(value => {
-  //     const psdi = new Uint8Array(value.buffer);
-  //   })
-  //   .catch(error => alert('ERROR liffGetPSDIService : ' + error));
-  // }
+  async liffGetPSDIService(service) {
+    service.getCharacteristic(PSDI_CHARACTERISTIC_UUID).then(characteristic => {
+      return characteristic.readValue();
+    })
+    .then(value => {
+      const psdi = new Uint8Array(value.buffer);
+    })
+    .catch(error => alert('ERROR liffGetPSDIService : ' + error));
+  }
 
   fetchUltradata() {
     this.liffGetUltraDataService(this.service);
