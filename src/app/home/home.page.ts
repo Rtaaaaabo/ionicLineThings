@@ -69,7 +69,7 @@ export class HomePage implements OnInit {
   ch4Under20FrontPosition: number;
   ch4Under20BackPosition: number;
 
-  constructor(private lineService: LiffBleService) {
+  constructor() {
     this.messages = '';
     // this.statusBle = true;
     this.ch1AntePosition = 0;
